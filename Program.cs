@@ -11,9 +11,9 @@
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите номер задания: 1, 2");
+            Console.WriteLine("Введите номер задания: 1, 2, 3, 4");
             string message = Console.ReadLine();
-            if ( message  == "1" ) 
+            if (message == "1")
             {
                 Console.Write("Привет введи Имя: ");
                 string name = Console.ReadLine();
@@ -21,29 +21,56 @@
                 string lastName = Console.ReadLine();
                 Console.Write("введи Отчество: ");
                 string patronymic = Console.ReadLine();
-                string text = GetFullName(lastName,name,patronymic);
+                string text = GetFullName(lastName, name, patronymic);
 
                 Console.WriteLine(text);
             }
-            else if (message == "2")  
+            else if (message == "2")
+            {
+                Console.WriteLine("Введите числа через пробел:");
+                var nubers = Console.ReadLine()
+                 .Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                 .Select(Int32.Parse);
+
+                var SUM = 0;
+                foreach (var n in nubers)
+                    SUM += n;
+                Console.WriteLine(SUM);
+
+            }
+            else if (message == "3")
             {
                 Console.Write("Привет введи число месяца: ");
                 int month = Convert.ToInt32(Console.ReadLine());
-                SeasonsMonth(month);
+                int ses = SeasonsMonth(month);
+                SeasonS(ses);
             }
+            else if (message == "4")
+            {
+                Console.Write("Введите число: ");
+                int n = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(FibRec(n));
+            }
+
+        }
+
+        static int FibRec(int n)
+        {
+            if (n == 0 || n == 1) return n;
+
+            else return FibRec(n - 1) + FibRec(n - 2);
         }
 
         static string GetFullName(string firstName, string lastName, string patronymic)
         {
-            string text = firstName + " " + lastName + " " + patronymic;    
+            string text = firstName + " " + lastName + " " + patronymic;
             return text;
         }
 
-       static void SeasonsMonth(int numMonth)
+        static int SeasonsMonth(int numMonth)
         {
+            int ret_num = 0;
             Seasons seasons = Seasons.Winter;
-
-            int err = 0;
             switch (numMonth)
             {
 
@@ -84,30 +111,54 @@
                     seasons = Seasons.Winter;
                     break;
                 default:
-                    err = -1;
-                    Console.WriteLine("Ошибка: введите число от 1 до 12");
-                    break;                
+                    ret_num = -1;
+                    break;
             }
-            if (err != -1)
+            if (ret_num != -1)
             {
-                if (seasons == Seasons.Summer)
+                if (seasons == Seasons.Winter)
                 {
-                    Console.WriteLine($"Лето {numMonth}");
+                    ret_num = 1;
                 }
                 if (seasons == Seasons.Spring)
                 {
-                    Console.WriteLine($"Весна {numMonth}");
+                    ret_num = 2;
+                }
+                if (seasons == Seasons.Summer)
+                {
+                    ret_num = 3;
                 }
                 if (seasons == Seasons.Autumn)
                 {
-                    Console.WriteLine($"Осень {numMonth}");
-                }
-                if (seasons == Seasons.Winter)
-                {
-                    Console.WriteLine($"Зима {numMonth}");
+                    ret_num = 4;
                 }
             }
-           
+            return ret_num;
+        }
+
+        static void SeasonS(int seasons)
+        {
+
+            if (seasons != -1)
+            {
+                if (seasons == 03)
+                {
+                    Console.WriteLine($"Лето ");
+                }
+                if (seasons == 02)
+                {
+                    Console.WriteLine($"Весна");
+                }
+                if (seasons == 04)
+                {
+                    Console.WriteLine($"Осень");
+                }
+                if (seasons == 01)
+                {
+                    Console.WriteLine($"Зима");
+                }
+            }
+            else { Console.WriteLine("Ошибка: введите число от 1 до 12"); }
         }
 
 
